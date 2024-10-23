@@ -16,10 +16,6 @@ export async function GET(
 ) {
   const host = getHostname();
 
-  if (!host) {
-    return new Response("Failed to get hostname from env", { status: 500 });
-  }
-
   const p = await params;
 
   const path = p.path.join("/");
@@ -30,6 +26,7 @@ export async function GET(
   if (!response.ok) {
     return new Response("Failed to fetch", { status: response.status });
   }
+
   const body = await response.text();
   const { document } = parseHTML(body);
 
